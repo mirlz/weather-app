@@ -10,7 +10,6 @@ const ob = observable({
     cities: [],
     options: [],
     cityField: '',
-    selectedCity: [],
 });
 
 const getCities = action((value) => {

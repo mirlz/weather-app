@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { Layout, Form, Col, Row, Button } from 'antd';
 const { Header, Content, Footer } = Layout;
-import CountrySearch from '../components/CountrySearch';
-import CitySearch from '../components/CitySearch';
+import HomePageStore from '../store/HomepageStore';
 import CountrySearchStore from '../store/CountrySearchStore';
 import CitySearchStore from '../store/CitySearchStore';
+
+import CountrySearch from '../components/CountrySearch';
+import CitySearch from '../components/CitySearch';
+import CurrentWeather from '../components/CurrentWeather';
 
 const Homepage = observer(() => {
     console.log("country:", CountrySearchStore.ob.countryField)
@@ -12,10 +15,9 @@ const Homepage = observer(() => {
     console.log("city:", CitySearchStore.ob.cityField)
 
     const [form] = Form.useForm();
-    const onFinish = (val) => {
-
-        console.log(val)
-
+    const onFinish = () => {
+        HomePageStore.getWeather();
+        HomePageStore.getCurrentTime();
     };
     const onReset = () => {
         form.resetFields();
@@ -36,16 +38,23 @@ const Homepage = observer(() => {
                         onFinish={onFinish}
                     >
                         <Row gutter={16}>
-                            <Col sm={12} lg={8} xxl={5}>
+                            <Col xs={12} lg={8} xxl={5}>
                                 <CountrySearch form={form} />
                             </Col>
-                            <Col sm={12} lg={8} xxl={5}>
+                            <Col xs={12} lg={8} xxl={5}>
                                 <CitySearch form={form} />
                             </Col>
-                            <Button htmlType="submit" type="primary">Search</Button>
-                            <Button htmlType="button" onClick={onReset}>
-                                Reset
-                            </Button>
+                            <Col xs={10} sm={6} md={4} xxl={2}>
+                                <Button htmlType="submit" type="primary" block>Search</Button>
+                            </Col>
+                            <Col xs={10} sm={6} md={4} xxl={2}>
+                                <Button htmlType="button" onClick={onReset} block>Reset</Button>
+                            </Col>
+                        </Row>
+                        <Row gutter={16}>
+                            {
+                                Object.keys(HomePageStore.ob.weather).length > 0 ? <CurrentWeather /> : ''
+                            }
                         </Row>
                     </Form>
                 </div>

@@ -1,20 +1,19 @@
 import { observer } from 'mobx-react';
 import { Select, Form } from 'antd';
 import CitySearchStore from '../store/CitySearchStore';
+import HomePageStore from '../store/HomepageStore';
 
-const CitySearch = observer((props) => {
-    const form = props.form;
-
+const CitySearch = observer(() => {
     const handleSearch = (searchVal) => {
         if (searchVal.length >= 3) {
             CitySearchStore.getCities(searchVal);
         }
     };
     const handleChange = (inputVal) => {
-        CitySearchStore.ob.selectedCity = CitySearchStore.ob.cities.filter(city => city.id === inputVal)
+        HomePageStore.setSelectedCity(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
         CitySearchStore.ob.cityField = inputVal;
 
-        console.log('selected ', JSON.stringify(CitySearchStore.ob.selectedCity))
+        console.log('selected ', JSON.stringify(HomePageStore.ob.selectedCity))
 
     };
     const handleClear = () => {

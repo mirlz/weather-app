@@ -2,9 +2,7 @@ import { observer } from 'mobx-react';
 import { Select, Form } from 'antd';
 import CountrySearchStore from '../store/CountrySearchStore';
 
-const CountrySearch = observer((props) => {
-    const form = props.form;
-
+const CountrySearch = observer(() => {
     const handleSearch = (searchVal) => {
         if (searchVal.length >= 3) {
             CountrySearchStore.getCountries(searchVal);

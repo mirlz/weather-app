@@ -1,5 +1,5 @@
 {
     "getCountries": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?",
     "getCities": "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?",
-    "getWeather": "https://api.openweathermap.org/data/3.0/onecall?"
+    "getWeather": "https://thingproxy.freeboard.io/fetch/https://api.openweathermap.org/data/2.5/weather?"
 }

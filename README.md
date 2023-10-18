@@ -21,3 +21,7 @@ This project is built using Vite + React with MobX as state management, AntD is 
     * https://rapidapi.com/wirefreethought/api/geodb-cities
 * Weather API
     * https://openweathermap.org/api
+
+#### Random Utility
+
+await new Promise(resolve => setTimeout(resolve, 5000));
