@@ -1,8 +1,13 @@
-# React + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## React + Vite + Mobx + AntD
 
-Currently, two official plugins are available:
+This project is built using Vite + React with MobX as state management, AntD is used as UI Library.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Components
+
+#### Search Inputs 
+
+- Set limit to only search if user input > 3 letters, free API limitation and can only draw maximum of 5 results, no support for lazy loading on AntD select drop down
+- If limit user to input more than 3 letters, the returned results should be more or less safely returned for auto suggestion
+- if 3 letters were input and desired result  is in the 6th position for eg, more letters input from the user would update the list

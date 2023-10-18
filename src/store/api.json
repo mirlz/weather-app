@@ -1,0 +1,3 @@
+{
+    "getCountry": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?limit=5&offset=0&namePrefix="
+}
