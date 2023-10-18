@@ -6,7 +6,7 @@ const Homepage = (props) => {
     return (
         <Layout className="layout">
             <Header className="header">
-                <h2>{`Today's Weather`}</h2>
+                <div className="sprite sprite--thunderstorm logo"></div><h2>{`Today's Weather`}</h2>
             </Header>
             <Content className="content">
                 <div className="site-layout-content">

@@ -1,0 +1,48 @@
+.sprite {
+    background-image: url('./icons.png');
+    background-size: 600% 800%;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 75px;
+    max-width: 100%;
+}
+
+.sprite--dawn {
+    background-position: 0 0;
+}
+
+.sprite--sun {
+    background-position: calc(100%/5) 0;
+}
+
+.sprite--moon {
+    background-position: calc(100%/5 * 2) 0;
+}
+
+.sprite--eclipse {
+    background-position: calc(100%/5 * 3) 0;
+}
+
+.sprite--windymoon {
+    background-position: calc(100%/5 * 4) 0;
+}
+
+.sprite--windy {
+    background-position: 100% 0;
+}
+
+.sprite--thunderstorm {
+    background-position: calc(100%/5 * 2) calc(100%/7 * 4);
+}
+
+.sprite--rain {
+    background-position: 100% calc(100%/7 * 3);
+}
+
+.sprite--snow {
+    background-position: calc(100%/5 * 4) calc(100%/7 * 3);
+}
+
+.sprite--cloudy {
+    background-position: calc(100%/5) calc(100%/7 * 2);
+}

@@ -8,6 +8,8 @@ body {
 .header {
   display: flex;
   align-items: center; }
+  .header .logo {
+    color: #fff; }
   .header h2 {
     color: #fff; }
 
