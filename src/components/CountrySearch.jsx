@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { Select, Tooltip, Form } from 'antd';
+import { Select, Form } from 'antd';
 import CountrySearchStore from '../store/CountrySearchStore';
 
 const CountrySearch = observer((props) => {
@@ -18,29 +18,27 @@ const CountrySearch = observer((props) => {
     }
 
     return (
-        <Tooltip title="Min length of 3 characters">
-            <Form.Item
-                name="country"
-                label="Country"
-                field="country"
-            >
-                <Select
-                    allowClear={true}
-                    showSearch
-                    placeholder="Search by country"
-                    defaultActiveFirstOption={false}
-                    suffixIcon={null}
-                    filterOption={false}
-                    onSearch={handleSearch}
-                    onChange={handleChange}
-                    onClear={handleClear}
-                    options={(CountrySearchStore.ob.countries || []).map((d) => ({
-                        value: d.value,
-                        label: d.text
-                    }))}
-                />
-            </Form.Item>
-        </Tooltip>
+        <Form.Item
+            name="country"
+            label="Search by Country"
+            field="country"
+        >
+            <Select
+                allowClear={true}
+                showSearch
+                placeholder="Min 3 character"
+                defaultActiveFirstOption={false}
+                suffixIcon={null}
+                filterOption={false}
+                onSearch={handleSearch}
+                onChange={handleChange}
+                onClear={handleClear}
+                options={(CountrySearchStore.ob.countries || []).map((d) => ({
+                    value: d.value,
+                    label: d.text
+                }))}
+            />
+        </Form.Item>
     );
 });
 

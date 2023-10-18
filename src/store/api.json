@@ -1,3 +1,4 @@
 {
-    "getCountries": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?limit=5&offset=0&namePrefix="
+    "getCountries": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?namePrefix=",
+    "getCities": "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix="
 }
