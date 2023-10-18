@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { Select, Tooltip, Form } from 'antd';
+import { Select, Form } from 'antd';
 import CitySearchStore from '../store/CitySearchStore';
 
 const CitySearch = observer((props) => {
@@ -11,35 +11,42 @@ const CitySearch = observer((props) => {
         }
     };
     const handleChange = (inputVal) => {
+        CitySearchStore.ob.selectedCity = CitySearchStore.ob.cities.filter(city => city.id === inputVal)
         CitySearchStore.ob.cityField = inputVal;
+
+        console.log('selected ', JSON.stringify(CitySearchStore.ob.selectedCity))
+
     };
     const handleClear = () => {
         CitySearchStore.clearOb();
     }
 
     return (
-        <Tooltip title="Min length of 3 characters">
-            <Form.Item
-                name="city"
-                label="Search by City"
-                field="city"
-            >
-                <Select
-                    showSearch
-                    placeholder="Min 3 character"
-                    defaultActiveFirstOption={false}
-                    suffixIcon={null}
-                    filterOption={false}
-                    onSearch={handleSearch}
-                    onChange={handleChange}
-                    onClear={handleClear}
-                    options={(CitySearchStore.ob.cities || []).map((d) => ({
-                        value: d.value,
-                        label: d.text
-                    }))}
-                />
-            </Form.Item>
-        </Tooltip>
+        <Form.Item
+            name="city"
+            label="Search by City"
+            field="city"
+            rules={[
+                {
+                    required: true,
+                },
+            ]}
+        >
+            <Select
+                showSearch
+                placeholder="Min 3 character"
+                defaultActiveFirstOption={false}
+                suffixIcon={null}
+                filterOption={false}
+                onSearch={handleSearch}
+                onChange={handleChange}
+                onClear={handleClear}
+                options={(CitySearchStore.ob.options || []).map((d) => ({
+                    value: d.id,
+                    label: d.text
+                }))}
+            />
+        </Form.Item>
     );
 });
 

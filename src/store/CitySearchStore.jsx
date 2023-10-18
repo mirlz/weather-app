@@ -8,7 +8,9 @@ let currentValue;
 
 const ob = observable({
     cities: [],
-    cityField: ''
+    options: [],
+    cityField: '',
+    selectedCity: [],
 });
 
 const getCities = action((value) => {
@@ -38,20 +40,21 @@ const getCities = action((value) => {
                         if (item.name && item.name !== '') {
                             return (
                                 {
-                                    value: item.name || '',
+                                    id: item.id,
                                     text: item.name || ''
                                 }
                             )
                         }
                     });
-                    setCities(selectData);
+                    setOptions(selectData);
+                    setCities(data);
                 }
             });
     };
     if (value) {
         timeout = setTimeout(triggerReq, 500);
     } else {
-        setCities([]);
+        setOptions([]);
     }
 });
 
@@ -59,13 +62,19 @@ const setCities = action((cities) => {
     ob.cities = cities;
 });
 
+const setOptions = action((options) => {
+    ob.options = options
+})
+
 const clearOb = action(() => {
     ob.cities = [];
+    ob.options = [];
     ob.cityField = '';
 })
 
 const CitySearchStore = {
     ob,
+    setOptions,
     getCities,
     setCities,
     clearOb
