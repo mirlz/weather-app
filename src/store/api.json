@@ -1,4 +1,5 @@
 {
-    "getCountries": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?namePrefix=",
-    "getCities": "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix="
+    "getCountries": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries?",
+    "getCities": "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?",
+    "getWeather": "https://api.openweathermap.org/data/3.0/onecall?"
 }

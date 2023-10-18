@@ -25,7 +25,7 @@ const getCities = action((value) => {
 
         axios({
             method: "GET",
-            url: `${apis.getCities}${value}${(country.length > 0) ? `&countryIds=${country}` : ``}`,
+            url: `${apis.getCities}namePrefix=${value}${(country.length > 0) ? `&countryIds=${country}` : ``}`,
             headers: {
                 'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY,
                 'X-RapidAPI-Host': import.meta.env.VITE_RAPIDAPI_HOST
