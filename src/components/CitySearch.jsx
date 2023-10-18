@@ -32,6 +32,7 @@ const CitySearch = observer(() => {
             ]}
         >
             <Select
+                disabled={HomePageStore.ob.loading}
                 showSearch
                 placeholder="Min 3 character"
                 defaultActiveFirstOption={false}

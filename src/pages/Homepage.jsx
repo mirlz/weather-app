@@ -8,6 +8,7 @@ import CitySearchStore from '../store/CitySearchStore';
 import CountrySearch from '../components/CountrySearch';
 import CitySearch from '../components/CitySearch';
 import CurrentWeather from '../components/CurrentWeather';
+import Loading from '../components/Loading';
 
 const Homepage = observer(() => {
     console.log("country:", CountrySearchStore.ob.countryField)
@@ -18,6 +19,11 @@ const Homepage = observer(() => {
     const onFinish = () => {
         HomePageStore.getWeather();
         HomePageStore.getCurrentTime();
+        HomePageStore.setLoading();
+
+        form.resetFields();
+        CountrySearchStore.clearOb();
+        CitySearchStore.clearOb();
     };
     const onReset = () => {
         form.resetFields();
@@ -45,15 +51,25 @@ const Homepage = observer(() => {
                                 <CitySearch form={form} />
                             </Col>
                             <Col xs={10} sm={6} md={4} xxl={2}>
-                                <Button htmlType="submit" type="primary" block>Search</Button>
+                                <Button
+                                    disabled={HomePageStore.ob.loading}
+                                    htmlType="submit"
+                                    type="primary"
+                                    block>
+                                    Search</Button>
                             </Col>
                             <Col xs={10} sm={6} md={4} xxl={2}>
-                                <Button htmlType="button" onClick={onReset} block>Reset</Button>
+                                <Button disabled={HomePageStore.ob.loading}
+                                    htmlType="button"
+                                    onClick={onReset}
+                                    block>
+                                    Reset</Button>
                             </Col>
                         </Row>
                         <Row gutter={16}>
                             {
-                                Object.keys(HomePageStore.ob.weather).length > 0 ? <CurrentWeather /> : ''
+                                Object.keys(HomePageStore.ob.weather).length > 0 ? <CurrentWeather />
+                                    : (HomePageStore.ob.loading) ? <Loading /> : ''
                             }
                         </Row>
                     </Form>

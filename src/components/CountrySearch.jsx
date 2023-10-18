@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import { Select, Form } from 'antd';
 import CountrySearchStore from '../store/CountrySearchStore';
+import HomePageStore from '../store/HomepageStore';
 
 const CountrySearch = observer(() => {
     const handleSearch = (searchVal) => {
@@ -22,6 +23,7 @@ const CountrySearch = observer(() => {
             field="country"
         >
             <Select
+                disabled={HomePageStore.ob.loading}
                 allowClear={true}
                 showSearch
                 placeholder="Min 3 character"

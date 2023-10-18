@@ -16,9 +16,19 @@ body {
 .content {
   padding: 20px 50px; }
 
+.spaceAlignContainer {
+  display: flex;
+  flex: 1;
+  align-content: center;
+  justify-content: center;
+  height: 40vh;
+  align-items: center;
+  background-color: #fff; }
+
 .currentWeather {
   padding: 20px;
-  width: 100%; }
+  width: 100%;
+  text-transform: capitalize; }
   .currentWeather .labelTitle {
     color: #7e7e7e;
     font-weight: 500; }

@@ -2,10 +2,11 @@ import { observable, action } from "mobx";
 import mock from './mock.json';
 
 const ob = observable({
-    loaded: false,
+    loading: false,
     weather: {},
     selectedCity: {},
-    datetime: ''
+    datetime: '',
+    searchResults: []
 });
 
 const getCurrentTime = () => {
@@ -21,21 +22,42 @@ const getWeather = action(async () => {
     //         'X-RapidAPI-Host': import.meta.env.VITE_RAPIDAPI_HOST
     //     }
     // }).then((response) => {
-    //     console.log(response.data)
+    //     ob.weather = response.data;
     // });
     await new Promise(resolve => setTimeout(resolve, 5000));
     ob.weather = mock;
+    setSearchResults(HomePageStore.ob.searchResults.length + 1);
+    setLoading();
 });
 
 const setSelectedCity = action((city) => {
     ob.selectedCity = city;
 });
 
+const setSearchResults = action((key) => {
+    const searchResults = [
+        ...ob.searchResults
+        , {
+            id: key,
+            selectedCity: ob.selectedCity,
+            datetime: ob.datetime
+        }];
+    ob.searchResults = searchResults;
+
+    console.log('ob.searchResults: ', JSON.stringify(ob.searchResults))
+});
+
+const setLoading = action(() => {
+    ob.loading = !ob.loading;
+});
+
 const HomePageStore = {
     ob,
     getWeather,
     setSelectedCity,
-    getCurrentTime
+    getCurrentTime,
+    setSearchResults,
+    setLoading
 };
 
 export default HomePageStore;
