@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import { Select, Form } from 'antd';
 import CitySearchStore from '../store/CitySearchStore';
-import HomePageStore from '../store/HomepageStore';
+import CurrentWeatherStore from '../store/CurrentWeatherStore';
 
 const CitySearch = observer(() => {
     const handleSearch = (searchVal) => {
@@ -10,10 +10,10 @@ const CitySearch = observer(() => {
         }
     };
     const handleChange = (inputVal) => {
-        HomePageStore.setSelectedCity(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
+        CurrentWeatherStore.setCityDetails(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
         CitySearchStore.ob.cityField = inputVal;
 
-        console.log('selected ', JSON.stringify(HomePageStore.ob.selectedCity))
+        console.log('selected ', JSON.stringify(CurrentWeatherStore.ob.cityDetails))
 
     };
     const handleClear = () => {
@@ -32,7 +32,7 @@ const CitySearch = observer(() => {
             ]}
         >
             <Select
-                disabled={HomePageStore.ob.loading}
+                disabled={CurrentWeatherStore.ob.loading}
                 showSearch
                 placeholder="Min 3 character"
                 defaultActiveFirstOption={false}

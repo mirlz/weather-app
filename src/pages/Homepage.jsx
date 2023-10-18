@@ -1,14 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import { Layout, Form, Col, Row, Button } from 'antd';
 const { Header, Content, Footer } = Layout;
-import HomePageStore from '../store/HomepageStore';
+import CurrentWeatherStore from '../store/CurrentWeatherStore';
 import CountrySearchStore from '../store/CountrySearchStore';
 import CitySearchStore from '../store/CitySearchStore';
 
 import CountrySearch from '../components/CountrySearch';
 import CitySearch from '../components/CitySearch';
 import CurrentWeather from '../components/CurrentWeather';
+import SearchHistory from '../components/SearchHistory';
 import Loading from '../components/Loading';
+import SearchHistoryStore from '../store/SearchHistoryStore';
 
 const Homepage = observer(() => {
     console.log("country:", CountrySearchStore.ob.countryField)
@@ -17,9 +19,9 @@ const Homepage = observer(() => {
 
     const [form] = Form.useForm();
     const onFinish = () => {
-        HomePageStore.getWeather();
-        HomePageStore.getCurrentTime();
-        HomePageStore.setLoading();
+        CurrentWeatherStore.getWeather();
+        CurrentWeatherStore.getCurrentTime();
+        CurrentWeatherStore.setLoading();
 
         form.resetFields();
         CountrySearchStore.clearOb();
@@ -51,31 +53,46 @@ const Homepage = observer(() => {
                                 <CitySearch form={form} />
                             </Col>
                             <Col xs={10} sm={6} md={4} xxl={2}>
-                                <Button
-                                    disabled={HomePageStore.ob.loading}
-                                    htmlType="submit"
-                                    type="primary"
-                                    block>
-                                    Search</Button>
+                                <Form.Item>
+                                    <Button
+                                        disabled={CurrentWeatherStore.ob.loading}
+                                        htmlType="submit"
+                                        type="primary"
+                                        block>
+                                        Search</Button>
+                                </Form.Item>
                             </Col>
                             <Col xs={10} sm={6} md={4} xxl={2}>
-                                <Button disabled={HomePageStore.ob.loading}
-                                    htmlType="button"
-                                    onClick={onReset}
-                                    block>
-                                    Reset</Button>
+                                <Form.Item>
+                                    <Button
+                                        disabled={CurrentWeatherStore.ob.loading}
+                                        htmlType="button"
+                                        onClick={onReset}
+                                        block>
+                                        Reset</Button>
+                                </Form.Item>
                             </Col>
                         </Row>
-                        <Row gutter={16}>
-                            {
-                                Object.keys(HomePageStore.ob.weather).length > 0 ? <CurrentWeather />
-                                    : (HomePageStore.ob.loading) ? <Loading /> : ''
-                            }
-                        </Row>
                     </Form>
+                    <Row gutter={[16, 16]}>
+                        <Col xs={24}>
+                            {
+                                (Object.keys(CurrentWeatherStore.ob.weather).length > 0 && !CurrentWeatherStore.ob.loading) ? <CurrentWeather />
+                                    : (CurrentWeatherStore.ob.loading) ? <Loading /> : ''
+                            }
+                        </Col>
+                    </Row>
+                    <Row gutter={[16, 16]}>
+                        <Col xs={24}>
+                            {
+                                Object.keys(SearchHistoryStore.ob.searchHistory).length > 0 ? <SearchHistory />
+                                    : ''
+                            }
+                        </Col>
+                    </Row>
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}>MirlZ ©2023 Created by Ant UED</Footer>
         </Layout >
     )
 });

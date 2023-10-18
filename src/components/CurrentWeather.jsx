@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react';
 import { Col, Row, Card } from 'antd';
-import HomePageStore from '../store/HomepageStore';
-import CitySearchStore from '../store/CitySearchStore';
+import CurrentWeatherStore from '../store/CurrentWeatherStore';
 
 const CurrentWeather = observer(() => {
-    const weather = HomePageStore.ob.weather;
-    const selectedCity = HomePageStore.ob.selectedCity;
-    const datetime = HomePageStore.ob.datetime;
+    const weather = CurrentWeatherStore.ob.weather;
+    const cityDetails = CurrentWeatherStore.ob.cityDetails;
+    const datetime = CurrentWeatherStore.ob.datetime;
 
     const {
         weather: [
@@ -14,14 +13,14 @@ const CurrentWeather = observer(() => {
         ],
         main: {
             temp_min, temp_max, feels_like, humidity
-        }, name
+        },
     } = weather;
     return (
         <Card className="currentWeather">
             <Row>
                 <Col xs={24}>
                     <div className="location">
-                        <div className="labelTitle">{selectedCity.city}, {selectedCity.country}</div>
+                        <div className="labelTitle">{cityDetails.city}, {cityDetails.country}</div>
                     </div>
                 </Col>
             </Row>

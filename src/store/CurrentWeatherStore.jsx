@@ -1,19 +1,19 @@
 import { observable, action } from "mobx";
 import mock from './mock.json';
+import SearchHistoryStore from "./SearchHistoryStore";
 
 const ob = observable({
     loading: false,
     weather: {},
-    selectedCity: {},
-    datetime: '',
-    searchResults: []
+    cityDetails: {},
+    datetime: ''
 });
 
 const getCurrentTime = () => {
     ob.datetime = new Date().toLocaleString();;
 }
 const getWeather = action(async () => {
-    const { latitude, longitude } = ob.selectedCity;
+    const { latitude, longitude } = ob.cityDetails;
     // axios({
     //     method: "GET",
     //     url: `${apis.getWeather}lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHERAPI_KEY}&units=metric`,
@@ -26,38 +26,34 @@ const getWeather = action(async () => {
     // });
     await new Promise(resolve => setTimeout(resolve, 5000));
     ob.weather = mock;
-    setSearchResults(HomePageStore.ob.searchResults.length + 1);
+    SearchHistoryStore.setSearchHistory(ob.cityDetails, ob.weather, ob.datetime);
     setLoading();
 });
 
-const setSelectedCity = action((city) => {
-    ob.selectedCity = city;
-});
-
-const setSearchResults = action((key) => {
-    const searchResults = [
-        ...ob.searchResults
-        , {
-            id: key,
-            selectedCity: ob.selectedCity,
-            datetime: ob.datetime
-        }];
-    ob.searchResults = searchResults;
-
-    console.log('ob.searchResults: ', JSON.stringify(ob.searchResults))
+const setCityDetails = action((city) => {
+    ob.cityDetails = city;
 });
 
 const setLoading = action(() => {
     ob.loading = !ob.loading;
 });
 
-const HomePageStore = {
+const setWeather = action((weather) => {
+    ob.weather = weather;
+});
+
+const setDateTime = action((datetime) => {
+    ob.datetime = datetime;
+});
+
+const CurrentWeatherStore = {
     ob,
     getWeather,
-    setSelectedCity,
+    setCityDetails,
     getCurrentTime,
-    setSearchResults,
-    setLoading
+    setLoading,
+    setWeather,
+    setDateTime
 };
 
-export default HomePageStore;
+export default CurrentWeatherStore;
