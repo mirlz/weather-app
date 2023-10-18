@@ -1,0 +1,17 @@
+body {
+  margin: 0; }
+
+#root {
+  min-height: 100vh;
+  display: flex; }
+
+.header {
+  display: flex;
+  align-items: center; }
+  .header h2 {
+    color: #fff; }
+
+.content {
+  padding: 20px 50px; }
+
+/*# sourceMappingURL=index.css.map */
