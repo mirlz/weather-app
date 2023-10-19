@@ -1,28 +1,34 @@
 import { observable, action } from "mobx";
 
 const ob = observable({
-    searchHistory: []
+    searchHistory: [],
+    historyId: 0
 });
 
-const setSearchHistory = action((city, weather, datetime) => {
-    const key = ob.searchHistory.length + 1;
+const addSearchHistory = action((city, weather, datetime) => {
     const searchResults = [
         ...ob.searchHistory
         , {
-            dataKey: key,
+            dataKey: ob.historyId,
             cityDetails: city,
             weather: weather,
             datetime: datetime,
             listDisplay: `${city.city}, ${city.country}`
         }];
+    // for local session keep track of search id
+    ob.historyId += 1;
     ob.searchHistory = searchResults;
-
-    console.log('ob.searchHistory: ', JSON.stringify(ob.searchHistory))
 });
+
+const removeFromSearchHistory = action((dataKey) => {
+    const data = JSON.parse(JSON.stringify(ob.searchHistory));
+    ob.searchHistory = data.filter((history) => history.dataKey !== dataKey);
+})
 
 const SearchHistoryStore = {
     ob,
-    setSearchHistory,
+    addSearchHistory,
+    removeFromSearchHistory
 };
 
 export default SearchHistoryStore;

@@ -6,15 +6,17 @@ import CurrentWeatherStore from '../store/CurrentWeatherStore';
 
 const SearchHistory = observer(() => {
     const data = SearchHistoryStore.ob.searchHistory;
-    console.log('searchhistory: ', JSON.stringify(data))
 
-    const handleClick = (dataKey) => {
+    const handleSearch = (dataKey) => {
         const selectedHistory = data.filter((history) => history.dataKey === dataKey)[0] || [];
-        console.log('selectedHistory.weather', selectedHistory.weather)
 
         CurrentWeatherStore.setWeather(selectedHistory.weather);
         CurrentWeatherStore.setCityDetails(selectedHistory.cityDetails);
         CurrentWeatherStore.setDateTime(selectedHistory.datetime);
+    }
+
+    const handleDelete = (dataKey) => {
+        SearchHistoryStore.removeFromSearchHistory(dataKey);
     }
 
     return (
@@ -23,18 +25,28 @@ const SearchHistory = observer(() => {
                 bordered
                 header={<h3>Search History</h3>}
                 dataSource={data}
-                renderItem={(item) => (
+                renderItem={(item, count) => (
                     <List.Item>
                         <div className="listItem">
                             <div className="sectionLeft">
-                                {item.dataKey}. {item.listDisplay}
+                                {count + 1}. {item.listDisplay}
                             </div>
                             <div className="sectionRight">
                                 {item.datetime}
-                                <Button shape="circle" onClick={() => {
-                                    handleClick(item.dataKey)
-                                }} icon={<SearchOutlined />} />
-                                <Button shape="circle" icon={<DeleteOutlined />} />
+                                <Button
+                                    shape="circle"
+                                    onClick={() => {
+                                        handleSearch(item.dataKey)
+                                    }}
+                                    icon={<SearchOutlined />}
+                                />
+                                <Button
+                                    shape="circle"
+                                    onClick={() => {
+                                        handleDelete(item.dataKey)
+                                    }}
+                                    icon={<DeleteOutlined />}
+                                />
                             </div>
                         </div>
                     </List.Item>

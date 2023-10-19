@@ -8,11 +8,8 @@ const CitySearch = observer(() => {
         CitySearchStore.getCities(searchVal);
     };
     const handleChange = (inputVal) => {
-        CurrentWeatherStore.setCityDetails(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
+        CitySearchStore.setSelectedCity(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
         CitySearchStore.ob.cityField = inputVal;
-
-        console.log('selected ', JSON.stringify(CurrentWeatherStore.ob.cityDetails))
-
     };
     const handleClear = () => {
         CitySearchStore.clearOb();
@@ -26,6 +23,7 @@ const CitySearch = observer(() => {
             rules={[
                 {
                     required: true,
+                    message: 'City name is required for search'
                 },
             ]}
         >

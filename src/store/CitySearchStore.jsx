@@ -10,6 +10,7 @@ const ob = observable({
     cities: [],
     options: [],
     cityField: '',
+    selectedCity: []
 });
 
 const getCities = action((value) => {
@@ -30,7 +31,6 @@ const getCities = action((value) => {
         }).then((response) => response.data
         )
             .then((response) => {
-                console.log(response)
                 const { data } = response;
                 const selectData = data.map((item) => {
                     if (item.name && item.name !== '') {
@@ -59,7 +59,11 @@ const setCities = action((cities) => {
 
 const setOptions = action((options) => {
     ob.options = options
-})
+});
+
+const setSelectedCity = action((city) => {
+    ob.selectedCity = city;
+});
 
 const clearOb = action(() => {
     ob.cities = [];
@@ -72,6 +76,7 @@ const CitySearchStore = {
     setOptions,
     getCities,
     setCities,
+    setSelectedCity,
     clearOb
 };
 

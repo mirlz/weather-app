@@ -4,12 +4,16 @@ import CountrySearchStore from '../store/CountrySearchStore';
 import CitySearchStore from '../store/CitySearchStore';
 import CurrentWeatherStore from '../store/CurrentWeatherStore';
 
-const CountrySearch = observer(() => {
+const CountrySearch = observer((props) => {
+    const form = props.form;
+
     const handleSearch = (searchVal) => {
         CountrySearchStore.getCountries(searchVal);
     };
     const handleChange = (inputVal) => {
         CountrySearchStore.ob.countryField = inputVal;
+        CitySearchStore.clearOb();
+        form.setFieldsValue({ city: CitySearchStore.ob.cityField })
     };
     const handleClear = () => {
         CountrySearchStore.clearOb();

@@ -15,6 +15,7 @@ import SearchHistoryStore from '../store/SearchHistoryStore';
 const Homepage = observer(() => {
     const [form] = Form.useForm();
     const onFinish = () => {
+        CurrentWeatherStore.setCityDetails(CitySearchStore.ob.selectedCity);
         CurrentWeatherStore.getWeather();
         CurrentWeatherStore.getCurrentTime();
         CurrentWeatherStore.setLoading();

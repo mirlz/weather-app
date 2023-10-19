@@ -24,7 +24,7 @@ const getWeather = action(async () => {
         }
     }).then((response) => {
         ob.weather = response.data;
-        SearchHistoryStore.setSearchHistory(ob.cityDetails, ob.weather, ob.datetime);
+        SearchHistoryStore.addSearchHistory(ob.cityDetails, ob.weather, ob.datetime);
         setLoading();
     });
 
