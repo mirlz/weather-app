@@ -16,7 +16,6 @@ const getCountries = action((value) => {
         clearTimeout(timeout);
         timeout = null;
     }
-    currentValue = value;
     const triggerReq = () => {
 
         axios({
@@ -29,20 +28,18 @@ const getCountries = action((value) => {
         }).then((response) => response.data
         )
             .then((response) => {
-                if (currentValue === value) {
-                    const { data } = response;
-                    const selectData = data.map((item) => {
-                        if (item.name && item.name !== '' && item.code && item.code !== '') {
-                            return (
-                                {
-                                    value: item.code || '',
-                                    text: item.name || ''
-                                }
-                            )
-                        }
-                    });
-                    setCountries(selectData);
-                }
+                const { data } = response;
+                const selectData = data.map((item) => {
+                    if (item.name && item.name !== '' && item.code && item.code !== '') {
+                        return (
+                            {
+                                value: item.code || '',
+                                text: item.name || ''
+                            }
+                        )
+                    }
+                });
+                setCountries(selectData);
             });
     };
     if (value) {

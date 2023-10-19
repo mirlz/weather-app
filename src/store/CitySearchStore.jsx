@@ -17,14 +17,12 @@ const getCities = action((value) => {
         clearTimeout(timeout);
         timeout = null;
     }
-    currentValue = value;
     const country = CountrySearchStore.ob.countryField;
 
     const triggerReq = () => {
-
         axios({
             method: "GET",
-            url: `${apis.getCities}namePrefix=${value}${(country.length > 0) ? `&countryIds=${country}` : ``}`,
+            url: `${apis.getCities}namePrefix=${value}${(country && country.length > 0) ? `&countryIds=${country}` : ``}`,
             headers: {
                 'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY,
                 'X-RapidAPI-Host': import.meta.env.VITE_RAPIDAPI_HOST
@@ -33,25 +31,23 @@ const getCities = action((value) => {
         )
             .then((response) => {
                 console.log(response)
-                if (currentValue === value) {
-                    const { data } = response;
-                    const selectData = data.map((item) => {
-                        if (item.name && item.name !== '') {
-                            return (
-                                {
-                                    id: item.id,
-                                    text: item.name || ''
-                                }
-                            )
-                        }
-                    });
-                    setOptions(selectData);
-                    setCities(data);
-                }
+                const { data } = response;
+                const selectData = data.map((item) => {
+                    if (item.name && item.name !== '') {
+                        return (
+                            {
+                                id: item.id,
+                                text: item.name || ''
+                            }
+                        )
+                    }
+                });
+                setOptions(selectData);
+                setCities(data);
             });
     };
     if (value) {
-        timeout = setTimeout(triggerReq, 500);
+        timeout = setTimeout(triggerReq, 1000);
     } else {
         setOptions([]);
     }

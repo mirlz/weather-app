@@ -5,9 +5,7 @@ import CurrentWeatherStore from '../store/CurrentWeatherStore';
 
 const CitySearch = observer(() => {
     const handleSearch = (searchVal) => {
-        if (searchVal.length >= 3) {
-            CitySearchStore.getCities(searchVal);
-        }
+        CitySearchStore.getCities(searchVal);
     };
     const handleChange = (inputVal) => {
         CurrentWeatherStore.setCityDetails(CitySearchStore.ob.cities.filter(city => city.id === inputVal)[0] || []);
@@ -33,8 +31,8 @@ const CitySearch = observer(() => {
         >
             <Select
                 disabled={CurrentWeatherStore.ob.loading}
+                allowClear={true}
                 showSearch
-                placeholder="Min 3 character"
                 defaultActiveFirstOption={false}
                 suffixIcon={null}
                 filterOption={false}

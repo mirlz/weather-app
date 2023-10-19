@@ -13,10 +13,6 @@ import Loading from '../components/Loading';
 import SearchHistoryStore from '../store/SearchHistoryStore';
 
 const Homepage = observer(() => {
-    console.log("country:", CountrySearchStore.ob.countryField)
-    console.log("country length:", CountrySearchStore.ob.countryField.length)
-    console.log("city:", CitySearchStore.ob.cityField)
-
     const [form] = Form.useForm();
     const onFinish = () => {
         CurrentWeatherStore.getWeather();
