@@ -55,4 +55,8 @@ body {
       align-items: center;
       column-gap: 15px; }
 
+.error {
+  background-color: #fff;
+  border-radius: 5px; }
+
 /*# sourceMappingURL=index.css.map */

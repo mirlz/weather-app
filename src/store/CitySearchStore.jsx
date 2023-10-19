@@ -4,7 +4,6 @@ import axios from 'axios';
 import apis from './api.json';
 
 let timeout;
-let currentValue;
 
 const ob = observable({
     cities: [],

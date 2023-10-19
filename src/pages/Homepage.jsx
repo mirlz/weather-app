@@ -4,13 +4,14 @@ const { Header, Content, Footer } = Layout;
 import CurrentWeatherStore from '../store/CurrentWeatherStore';
 import CountrySearchStore from '../store/CountrySearchStore';
 import CitySearchStore from '../store/CitySearchStore';
+import SearchHistoryStore from '../store/SearchHistoryStore';
 
 import CountrySearch from '../components/CountrySearch';
 import CitySearch from '../components/CitySearch';
 import CurrentWeather from '../components/CurrentWeather';
 import SearchHistory from '../components/SearchHistory';
 import Loading from '../components/Loading';
-import SearchHistoryStore from '../store/SearchHistoryStore';
+import Error from '../components/Error';
 
 const Homepage = observer(() => {
     const [form] = Form.useForm();
@@ -74,8 +75,9 @@ const Homepage = observer(() => {
                     <Row gutter={[16, 16]}>
                         <Col xs={24}>
                             {
-                                (Object.keys(CurrentWeatherStore.ob.weather).length > 0 && !CurrentWeatherStore.ob.loading) ? <CurrentWeather />
-                                    : (CurrentWeatherStore.ob.loading) ? <Loading /> : ''
+                                (Object.keys(CurrentWeatherStore.ob.error).length > 0) ? <Error /> :
+                                    (Object.keys(CurrentWeatherStore.ob.weather).length > 0 && !CurrentWeatherStore.ob.loading) ? <CurrentWeather />
+                                        : (CurrentWeatherStore.ob.loading) ? <Loading /> : ''
                             }
                         </Col>
                     </Row>

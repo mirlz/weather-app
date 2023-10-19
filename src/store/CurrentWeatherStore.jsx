@@ -7,13 +7,15 @@ const ob = observable({
     loading: false,
     weather: {},
     cityDetails: {},
-    datetime: ''
+    datetime: '',
+    error: {}
 });
 
 const getCurrentTime = () => {
-    ob.datetime = new Date().toLocaleString();;
-}
-const getWeather = action(async () => {
+    ob.datetime = new Date().toLocaleString();
+};
+
+const getWeather = action(() => {
     const { latitude, longitude } = ob.cityDetails;
     axios({
         method: "GET",
@@ -26,8 +28,11 @@ const getWeather = action(async () => {
         ob.weather = response.data;
         SearchHistoryStore.addSearchHistory(ob.cityDetails, ob.weather, ob.datetime);
         setLoading();
+    }).catch((error) => {
+        const { message, response } = error;
+        setError({ message, status: response.status });
+        setLoading();
     });
-
 });
 
 const setCityDetails = action((city) => {
@@ -45,6 +50,10 @@ const setWeather = action((weather) => {
 const setDateTime = action((datetime) => {
     ob.datetime = datetime;
 });
+
+const setError = action((err) => {
+    ob.error = err;
+})
 
 const CurrentWeatherStore = {
     ob,
